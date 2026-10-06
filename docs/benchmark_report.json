@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-10-06T21:01:32.647Z",
+  "datasetSize": 1000,
+  "classes": {
+    "authenticCount": 500,
+    "inauthenticCount": 500
+  },
+  "confusionMatrix": {
+    "truePositives": 500,
+    "falsePositives": 0,
+    "trueNegatives": 500,
+    "falseNegatives": 0
+  },
+  "metrics": {
+    "precision": 1,
+    "recall": 1,
+    "specificity": 1,
+    "f1Score": 1,
+    "falsePositiveRate": 0
+  },
+  "auditTrustIndex": 18,
+  "auditMerkleRoot": "6643e17edefc334ac655aea811dc2ab0d04524f60798a8b63b8031ec027cc80e"
+}
