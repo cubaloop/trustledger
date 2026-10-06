@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Nova Clinic Dubai & TrustLedger — Verified Aesthetic Medicine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Banner (Editable from Admin Tab 2) -->
+  <div id="announcement-banner" class="announcement-bar" style="background: var(--accent-brass); color: #FFFDF8; font-size: 0.85rem; padding: 0.5rem 1rem; text-align: center; font-weight: 500; display: flex; justify-content: center; align-items: center; gap: 0.75rem;">
+    <span id="announcement-text">Complimentary Merkle-Verified Skin Consultation with every treatment in October 2026.</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header style="padding: 1.25rem 2rem; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);">
+    <div style="max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+      
+      <!-- Brand & Social Proof -->
+      <div>
+        <div class="font-display" style="font-size: 1.6rem; font-weight: 600; letter-spacing: 0.05em; color: var(--text-main);">
+          THE NOVA CLINIC
+        </div>
+        <a href="https://maps.google.com/?q=The+Nova+Clinic+Dubai" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--accent-brass); text-decoration: none; margin-top: 0.2rem; font-weight: 600;">
+          <span>★ 4.9</span>
+          <span style="color: var(--text-muted); font-weight: 400;">(1,482 verified Google reviews)</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+      </div>
+
+      <!-- Actions & Controls -->
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        
+        <!-- Language Selector -->
+        <button id="lang-toggle-btn" class="btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" onclick="toggleLanguage()">
+          العربية
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" onclick="toggleTheme()" aria-label="Toggle Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- Golden Admin Pill -->
+        <button id="admin-pill-btn" onclick="openAdminModal()" style="background: var(--accent-brass-soft); border: 1px solid var(--accent-brass); color: var(--accent-brass); padding: 0.45rem 1rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.35rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span data-i18n="admin_panel">Admin</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main style="max-width: 1300px; margin: 0 auto; padding: 2.5rem 1.5rem;">
+
+    <!-- Hero Section (Bento Grid) -->
+    <section class="bento-grid" style="margin-bottom: 3.5rem;">
+      
+      <!-- Hero Narrative Card -->
+      <div class="bento-card" style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; padding: 3rem 2.5rem;">
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-brass-soft); border: 1px solid var(--border-brass); color: var(--accent-brass); padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; width: fit-content; margin-bottom: 1.5rem;">
+          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #25D366;"></span>
+          <span data-i18n="trust_protocol_badge">TrustLedger Cryptographic Protocol Active</span>
+        </div>
+        <h1 class="font-display" style="font-size: 3.2rem; line-height: 1.15; margin-bottom: 1.25rem; color: var(--text-main);" data-i18n="hero_title">
+          Timeless Aesthetics, Cryptographically Verified
+        </h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 540px;" data-i18n="hero_subtitle">
+          Experience world-class cosmetic dermatology in Dubai. Every patient review is reconciled against our on-ledger appointment ledger to eliminate algorithmic doubt.
+        </p>
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+          <button class="btn-brass" onclick="openBookingModal()" data-i18n="book_appointment">Book Appointment</button>
+          
+          <!-- Strict WhatsApp Button: ONLY ICON, NO TEXT -->
+          <a href="https://wa.me/971508379080" target="_blank" rel="noopener" class="whatsapp-icon-btn" aria-label="WhatsApp">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.579 1.831.848 2.791.848 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.768-5.768-5.768zm7.391 5.765c-.002 4.08-3.315 7.394-7.391 7.394-1.246 0-2.433-.323-3.486-.927l-4.145 1.087 1.107-4.043c-.682-1.096-1.047-2.364-1.048-3.511.002-4.08 3.316-7.394 7.392-7.394 4.076 0 7.39 3.315 7.392 7.394z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Arch Frame Image Card -->
+      <div class="bento-card arch-frame" style="grid-column: span 5; padding: 0; position: relative; min-height: 440px;">
+        <img src="assets/hero.jpg" alt="The Nova Clinic Reception" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; background: rgba(255, 253, 248, 0.85); backdrop-filter: blur(12px); border: 1px solid var(--border-brass); border-radius: 1.25rem; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;" data-i18n="location_label">Location</div>
+            <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">Al Wasl Road, Jumeirah, Dubai</div>
+          </div>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--accent-brass);" data-i18n="suite_ready">Suites Available</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TrustLedger Autonomous Integrity Engine Monitor (Bento Row) -->
+    <section class="bento-card" style="margin-bottom: 3.5rem; border-color: var(--border-brass); background: linear-gradient(135deg, var(--bg-surface) 0%, var(--accent-brass-soft) 100%);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-brass); font-weight: 700;" data-i18n="audit_status">
+            Reputation Audit & Merkle Proof Protocol
+          </div>
+          <h2 class="font-display" style="font-size: 1.85rem; color: var(--text-main); margin-top: 0.2rem;" data-i18n="integrity_headline">
+            Autonomous Google Business Profile Safeguard
+          </h2>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button class="btn-brass" onclick="runLiveAuditUI()" style="font-size: 0.85rem; padding: 0.55rem 1.25rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span data-i18n="btn_run_audit">Run Real-Time Audit</span>
+          </button>
+          <button class="btn-outline" onclick="downloadGoogleAppeal()" style="font-size: 0.85rem; padding: 0.55rem 1.25rem;">
+            <span data-i18n="btn_export_appeal">Download Google Appeal Packet</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-Time Metrics Bento Sub-grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+        
+        <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="metric_trust_index">TrustLedger Index</div>
+          <div id="metric-trust-index" style="font-size: 2.2rem; font-weight: 700; color: var(--accent-brass); margin-top: 0.25rem;">98 / 100</div>
+          <div style="font-size: 0.75rem; color: #25D366; font-weight: 600; margin-top: 0.2rem;" data-i18n="metric_status_clean">Optimal Integrity Level</div>
+        </div>
+
+        <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="metric_reconciled">Reconciled Transactions</div>
+          <div id="metric-reconciled" style="font-size: 2.2rem; font-weight: 700; color: var(--text-main); margin-top: 0.25rem;">1,482</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;" data-i18n="metric_reconciled_sub">100% On-Ledger Matches</div>
+        </div>
+
+        <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="metric_bursts">Active Velocity Bursts</div>
+          <div id="metric-bursts" style="font-size: 2.2rem; font-weight: 700; color: var(--text-main); margin-top: 0.25rem;">0</div>
+          <div style="font-size: 0.75rem; color: #25D366; font-weight: 600; margin-top: 0.2rem;" data-i18n="metric_bursts_sub">Z-Score &lt; 2.2 (No Attacks)</div>
+        </div>
+
+        <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="metric_merkle_root">Current Merkle Root</div>
+          <div id="metric-merkle-root" style="font-family: monospace; font-size: 0.85rem; color: var(--text-main); word-break: break-all; margin-top: 0.5rem; background: var(--bg-primary); padding: 0.5rem; border-radius: 0.5rem;">
+            7b9a4c82e...d901a
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem;" data-i18n="metric_merkle_sub">SHA-256 Tamper-Proof Root</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Services & Catalogue Section -->
+    <section style="margin-bottom: 4rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-brass); font-weight: 700;" data-i18n="services_subtitle">
+            Curated Clinical Portfolio
+          </div>
+          <h2 class="font-display" style="font-size: 2.6rem; color: var(--text-main);" data-i18n="services_title">
+            Signature Treatments
+          </h2>
+        </div>
+        
+        <!-- Category Filter Buttons -->
+        <div id="category-filters" style="display: flex; gap: 0.5rem; overflow-x: auto; max-width: 100%;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Services Grid Container -->
+      <div id="services-grid" class="bento-grid">
+        <!-- Rendered dynamically from LocalStorage / Supabase -->
+      </div>
+    </section>
+
+    <!-- Review Verification Invitation Demo Box -->
+    <section class="bento-card" style="margin-bottom: 4rem; background: var(--bg-surface);">
+      <h3 class="font-display" style="font-size: 1.8rem; margin-bottom: 0.75rem; color: var(--text-main);" data-i18n="review_invite_title">
+        Post-Visit Cryptographic Review Protocol
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 650px;" data-i18n="review_invite_sub">
+        After completing their appointment, genuine patients receive a single-use HMAC token link via WhatsApp to submit an immutable, verified review.
+      </p>
+      
+      <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <input id="demo-phone" type="text" value="+971 50 123 4567" style="background: var(--bg-primary); border: 1px solid var(--border-brass); padding: 0.75rem 1rem; border-radius: 9999px; color: var(--text-main); font-size: 0.9rem; min-width: 220px;">
+        <button class="btn-brass" onclick="generateDemoInviteToken()" data-i18n="btn_generate_invite">Generate Verified Link</button>
+      </div>
+
+      <div id="generated-token-result" style="display: none; margin-top: 1.5rem; background: var(--bg-primary); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+        <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="token_link_label">Shareable Single-Use Verification Link:</div>
+        <div id="token-url-text" style="font-family: monospace; font-size: 0.85rem; color: var(--accent-brass); word-break: break-all; margin: 0.5rem 0;"></div>
+        <a id="token-test-link" href="#" target="_blank" class="btn-outline" style="font-size: 0.8rem; display: inline-block;" data-i18n="open_verification_page">Open Verification Form</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-subtle); padding: 3rem 2rem; margin-top: 3rem;">
+    <div style="max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <div class="font-display" style="font-size: 1.4rem; color: var(--text-main);">THE NOVA CLINIC DUBAI</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
+          Jumeirah Beach Road &amp; Al Wasl Rd, Dubai, United Arab Emirates
+        </div>
+      </div>
+
+      <!-- Developed by Tecnoemprende Signature (Mandatory Rule) -->
+      <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem;">
+        <span>Developed by</span>
+        <strong style="color: var(--accent-brass); font-weight: 600;">Tecnoemprende</strong>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button: STRICTLY ONLY ICON, NO TEXT -->
+  <a href="https://wa.me/971508379080" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.579 1.831.848 2.791.848 3.18 0 5.767-2.587 5.768-5.766.001-3.182-2.585-5.768-5.768-5.768zm7.391 5.765c-.002 4.08-3.315 7.394-7.391 7.394-1.246 0-2.433-.323-3.486-.927l-4.145 1.087 1.107-4.043c-.682-1.096-1.047-2.364-1.048-3.511.002-4.08 3.316-7.394 7.392-7.394 4.076 0 7.39 3.315 7.392 7.394z"/></svg>
+  </a>
+
+  <!-- ========================================================
+       ADMIN MOBILE DASHBOARD MODAL (TIERRA QUERIDA ARCHITECTURE)
+       5 MANDATORY TABS + CANVAS IMAGE COMPRESSION ENGINE
+       ======================================================== -->
+  <div id="admin-modal" class="admin-modal-backdrop" onclick="handleBackdropClick(event)">
+    <div class="admin-drawer">
+      
+      <!-- Drawer Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-brass); font-weight: 700;">Tierra Querida Engine</span>
+          <h3 class="font-display" style="font-size: 1.7rem; color: var(--text-main);">Mobile Administrator</h3>
+        </div>
+        <button onclick="closeAdminModal()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">&times;</button>
+      </div>
+
+      <!-- 5 Mandatory Tabs Navigation -->
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchAdminTab('tab-catalog')" data-tab="tab-catalog">1. Catalog &amp; Services</button>
+        <button class="tab-btn" onclick="switchAdminTab('tab-announcements')" data-tab="tab-announcements">2. Announcements</button>
+        <button class="tab-btn" onclick="switchAdminTab('tab-categories')" data-tab="tab-categories">3. Categories</button>
+        <button class="tab-btn" onclick="switchAdminTab('tab-bookings')" data-tab="tab-bookings">4. Appointments Ledger</button>
+        <button class="tab-btn" onclick="switchAdminTab('tab-settings')" data-tab="tab-settings">5. Supabase &amp; Backup</button>
+      </div>
+
+      <!-- TAB 1: CATALOG CRUD -->
+      <div id="tab-catalog" class="tab-content" style="display: block;">
+        <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-main);">Manage Treatments &amp; Services</h4>
+        
+        <form id="service-form" onsubmit="handleSaveService(event)" style="background: var(--bg-primary); padding: 1.25rem; border-radius: 1rem; margin-bottom: 1.5rem; border: 1px solid var(--border-subtle);">
+          <input type="hidden" id="service-id" value="">
+          
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Service Name</label>
+            <input type="text" id="service-name" required style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-surface); color: var(--text-main);">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Price (AED)</label>
+              <input type="number" id="service-price" required style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-surface); color: var(--text-main);">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Category</label>
+              <select id="service-category" style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-surface); color: var(--text-main);"></select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Description</label>
+            <textarea id="service-desc" rows="2" style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-surface); color: var(--text-main);"></textarea>
+          </div>
+
+          <!-- HTML5 Canvas Image Compressor Engine (Mobile Camera / Gallery) -->
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Upload Photo (Camera / Gallery - Auto-Compressed &le; 800px)</label>
+            <input type="file" id="service-image-file" accept="image/*" onchange="handleImageCompress(event)" style="font-size: 0.8rem; color: var(--text-main);">
+            <div id="compression-preview" style="margin-top: 0.5rem; display: none;">
+              <img id="compressed-image-preview" src="" style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem; border: 1px solid var(--accent-brass);">
+              <span id="compression-stats" style="font-size: 0.75rem; color: var(--text-muted); margin-left: 0.5rem;"></span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="submit" class="btn-brass" style="font-size: 0.85rem; padding: 0.5rem 1.25rem;">Save Treatment</button>
+            <button type="button" class="btn-outline" onclick="resetServiceForm()" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cancel</button>
+          </div>
+        </form>
+
+        <div id="admin-services-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- TAB 2: ANNOUNCEMENTS & PROMOTIONS -->
+      <div id="tab-announcements" class="tab-content" style="display: none;">
+        <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-main);">Live Banner &amp; Alerts Editor</h4>
+        <div style="background: var(--bg-primary); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Top Bar Announcement Text</label>
+          <textarea id="edit-announcement" rows="3" style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-surface); color: var(--text-main); margin-bottom: 1rem;"></textarea>
+          <button class="btn-brass" onclick="saveAnnouncement()" style="font-size: 0.85rem;">Update Live Banner</button>
+        </div>
+      </div>
+
+      <!-- TAB 3: DYNAMIC CATEGORIES -->
+      <div id="tab-categories" class="tab-content" style="display: none;">
+        <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-main);">Dynamic Category Engine</h4>
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+          <input type="text" id="new-category-input" placeholder="New Category (e.g. Body Contouring)" style="flex: 1; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-surface); color: var(--text-main);">
+          <button class="btn-brass" onclick="addCategory()" style="font-size: 0.85rem;">Add</button>
+        </div>
+        <div id="admin-categories-list" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+      </div>
+
+      <!-- TAB 4: APPOINTMENTS LEDGER & TOKENS -->
+      <div id="tab-bookings" class="tab-content" style="display: none;">
+        <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-main);">Patient Appointments &amp; Verification</h4>
+        <div id="admin-bookings-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+      </div>
+
+      <!-- TAB 5: SUPABASE & 1-CLICK BACKUP / RESTORE -->
+      <div id="tab-settings" class="tab-content" style="display: none;">
+        <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-main);">Dual-Layer Cloud &amp; Persistence</h4>
+        
+        <div style="background: var(--bg-primary); padding: 1.25rem; border-radius: 1rem; margin-bottom: 1.5rem; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem;">Supabase Connection Status</div>
+          <div id="supabase-status-badge" style="display: inline-block; padding: 0.25rem 0.6rem; border-radius: 0.4rem; font-size: 0.75rem; font-weight: 600; background: #E6F4EA; color: #137333;">
+            Connected (jyrqzjctkmzdvmraqrcv)
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Automatic background synchronization active. LocalStorage boots in 0 ms.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-primary); padding: 1.25rem; border-radius: 1rem; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem;">1-Click JSON Backup &amp; Restore</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn-brass" onclick="exportBackupJSON()" style="font-size: 0.8rem; padding: 0.5rem 1rem;">Export JSON Backup</button>
+            <label class="btn-outline" style="font-size: 0.8rem; padding: 0.5rem 1rem; cursor: pointer; display: inline-flex; align-items: center;">
+              Restore JSON
+              <input type="file" accept=".json" onchange="importBackupJSON(event)" style="display: none;">
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div id="booking-modal" class="admin-modal-backdrop" onclick="handleBookingBackdrop(event)">
+    <div style="background: var(--bg-surface); max-width: 460px; width: 90%; border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--border-brass); margin: auto;">
+      <h3 class="font-display" style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.5rem;" data-i18n="booking_modal_title">Book Appointment</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;" data-i18n="booking_modal_sub">Confirm your luxury suite appointment at The Nova Clinic.</p>
+      
+      <form onsubmit="handleCustomerBooking(event)">
+        <div style="margin-bottom: 0.85rem;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Full Name</label>
+          <input type="text" id="cust-name" required style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-primary); color: var(--text-main);">
+        </div>
+        <div style="margin-bottom: 0.85rem;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">WhatsApp Number</label>
+          <input type="tel" id="cust-phone" required value="+971 " style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-primary); color: var(--text-main);">
+        </div>
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Preferred Treatment</label>
+          <select id="cust-service" style="width: 100%; padding: 0.65rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-primary); color: var(--text-main);"></select>
+        </div>
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+          <button type="button" class="btn-outline" onclick="closeBookingModal()">Cancel</button>
+          <button type="submit" class="btn-brass" data-i18n="confirm_booking_btn">Confirm Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

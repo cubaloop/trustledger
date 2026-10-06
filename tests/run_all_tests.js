@@ -9,8 +9,10 @@ try {
   execSync('node tests/unit_tests.js', { stdio: 'inherit' });
   console.log('\n[2/3] Executing Fast-Check Property Tests (5,000 Invariants)...');
   execSync('node tests/property_based_tests.js', { stdio: 'inherit' });
-  console.log('\n[3/3] Executing Empirical Benchmark (1,000 Cases)...');
+  console.log('\n[3/4] Executing Empirical Benchmark (1,000 Cases)...');
   execSync('node tests/benchmark_precision_recall.js', { stdio: 'inherit' });
+  console.log('\n[4/4] Executing Full Server E2E Integration Suite...');
+  execSync('node tests/integration_e2e_test.js', { stdio: 'inherit' });
 
   console.log('\n====================================================');
   console.log('   ✓ ALL TESTS AND VERIFICATIONS PASSED WITH 100% SUCCESS  ');

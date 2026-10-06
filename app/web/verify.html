@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Nova Clinic Dubai — Verified Patient Review Protocol</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem;">
+
+  <div class="bento-card" style="max-width: 520px; width: 100%; border-color: var(--border-brass); box-shadow: var(--shadow-elevated);">
+    
+    <div style="text-align: center; margin-bottom: 1.75rem;">
+      <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent-brass-soft); border: 1px solid var(--border-brass); color: var(--accent-brass); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.75rem;">
+        <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #25D366;"></span>
+        CRYPTOGRAPHIC ON-LEDGER VERIFICATION
+      </div>
+      <h2 class="font-display" style="font-size: 2rem; color: var(--text-main);">Share Your Experience</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
+        Your review is cryptographically linked to your appointment ledger record to guarantee 100% authentic patient feedback.
+      </p>
+    </div>
+
+    <form id="verify-review-form" onsubmit="submitVerifiedReview(event)">
+      <input type="hidden" id="token-input" value="">
+      <input type="hidden" id="booking-id-input" value="">
+
+      <div style="margin-bottom: 1.25rem;">
+        <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Patient Name</label>
+        <input type="text" id="review-author" required placeholder="e.g. Elena Rostova" style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-primary); color: var(--text-main);">
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Rating</label>
+        <div style="display: flex; gap: 0.5rem; justify-content: center; font-size: 1.8rem; cursor: pointer;" id="star-rating-container">
+          <span onclick="setRating(1)" class="star">★</span>
+          <span onclick="setRating(2)" class="star">★</span>
+          <span onclick="setRating(3)" class="star">★</span>
+          <span onclick="setRating(4)" class="star">★</span>
+          <span onclick="setRating(5)" class="star">★</span>
+        </div>
+        <input type="hidden" id="review-rating" value="5">
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Review &amp; Treatment Feedback</label>
+        <textarea id="review-text" rows="4" required placeholder="Describe your consultation or treatment experience..." style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border-brass); background: var(--bg-primary); color: var(--text-main); font-family: inherit; font-size: 0.9rem;"></textarea>
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn-brass" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+        Submit Verified Review
+      </button>
+    </form>
+
+    <div id="success-result" style="display: none; text-align: center; padding: 1.5rem 0;">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: #E6F4EA; color: #137333; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.8rem;">
+        ✓
+      </div>
+      <h3 class="font-display" style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.5rem;">Review Authenticated &amp; Anchored</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Your review has been verified against our appointment ledger and incorporated into the Merkle tree.
+      </p>
+      <div style="background: var(--bg-primary); padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border-subtle); font-family: monospace; font-size: 0.75rem; color: var(--accent-brass); word-break: break-all; margin-bottom: 1.5rem;" id="proof-hash-display"></div>
+      <a href="index.html" class="btn-outline" style="font-size: 0.85rem;">Return to Homepage</a>
+    </div>
+
+    <!-- Developed by Tecnoemprende footer -->
+    <div style="margin-top: 1.75rem; text-align: center; font-size: 0.75rem; color: var(--text-muted);">
+      TrustLedger Verified System &bull; Developed by <strong style="color: var(--accent-brass);">Tecnoemprende</strong>
+    </div>
+
+  </div>
+
+  <script>
+    let currentRating = 5;
+
+    function setRating(val) {
+      currentRating = val;
+      document.getElementById('review-rating').value = val;
+      const stars = document.querySelectorAll('.star');
+      stars.forEach((s, idx) => {
+        s.style.color = idx < val ? 'var(--accent-brass)' : 'var(--border-subtle)';
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setRating(5);
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token') || '';
+      const bookingId = params.get('bookingId') || '';
+      document.getElementById('token-input').value = token;
+      document.getElementById('booking-id-input').value = bookingId;
+    });
+
+    async function submitVerifiedReview(e) {
+      e.preventDefault();
+      const token = document.getElementById('token-input').value;
+      const bookingId = document.getElementById('booking-id-input').value;
+      const author = document.getElementById('review-author').value;
+      const rating = parseInt(document.getElementById('review-rating').value, 10);
+      const text = document.getElementById('review-text').value;
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Anchoring into Merkle Tree...';
+
+      try {
+        const res = await fetch('/api/token/submit-verified-review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, bookingId, author, rating, text })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('verify-review-form').style.display = 'none';
+          document.getElementById('success-result').style.display = 'block';
+          document.getElementById('proof-hash-display').innerText = `Merkle Leaf Hash: ${data.leafHash}`;
+        } else {
+          alert('Verification failed: ' + (data.reason || data.error));
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Submit Verified Review';
+        }
+      } catch (err) {
+        alert('Network error: ' + err.message);
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit Verified Review';
+      }
+    }
+  </script>
+</body>
+</html>
