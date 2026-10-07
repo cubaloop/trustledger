@@ -113,16 +113,43 @@ const TRANSLATIONS = {
   }
 };
 
+// Safe LocalStorage helpers
+function safeGetStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch (e) {
+    console.warn('[Storage] Read error for ' + key, e);
+    return fallback;
+  }
+}
+
+function safeSetStorage(key, val) {
+  try {
+    const str = typeof val === 'string' ? val : JSON.stringify(val);
+    localStorage.setItem(key, str);
+  } catch (e) {
+    console.warn('[Storage] Write error for ' + key, e);
+  }
+}
+
 // Global State
 let currentLang = 'en';
 let currentCategory = 'All';
 let compressedImageDataUrl = null;
 
-// Initialize from LocalStorage (Instant 0 ms boot)
-let services = JSON.parse(localStorage.getItem('tl_services') || JSON.stringify(DEFAULT_SERVICES));
-let categories = JSON.parse(localStorage.getItem('tl_categories') || JSON.stringify(DEFAULT_CATEGORIES));
-let bookings = JSON.parse(localStorage.getItem('tl_bookings') || JSON.stringify(DEFAULT_BOOKINGS));
-let announcementText = localStorage.getItem('tl_announcement') || "Complimentary Merkle-Verified Skin Consultation with every treatment in October 2026.";
+// Initialize from LocalStorage (Instant 0 ms boot with fallback protection)
+let services = safeGetStorage('tl_services', DEFAULT_SERVICES);
+let categories = safeGetStorage('tl_categories', DEFAULT_CATEGORIES);
+let bookings = safeGetStorage('tl_bookings', DEFAULT_BOOKINGS);
+let announcementText = (function() {
+  try {
+    return localStorage.getItem('tl_announcement') || "Complimentary Merkle-Verified Skin Consultation with every treatment in October 2026.";
+  } catch (e) {
+    return "Complimentary Merkle-Verified Skin Consultation with every treatment in October 2026.";
+  }
+})();
 
 /* ========================================================
    DUAL-LAYER RESILIENT SYNCHRONIZATION WITH SUPABASE
@@ -142,10 +169,14 @@ async function syncFromSupabase() {
    ======================================================== */
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme') || 'light';
-  const next = current === 'light' ? 'dark' : 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
-  document.getElementById('theme-icon').innerText = next === 'light' ? '🌙' : '☀️';
-  localStorage.setItem('tl_theme', next);
+  const icon = document.getElementById('theme-icon');
+  if (icon) {
+    icon.innerText = next === 'dark' ? '☀️' : '🌙';
+  }
+  safeSetStorage('tl_theme', next);
+  console.log('[Theme] Toggled to:', next);
 }
 
 function toggleLanguage() {
@@ -576,13 +607,22 @@ async function downloadGoogleAppeal() {
    MODALS & EVENT HANDLERS
    ======================================================== */
 function openAdminModal() {
-  document.getElementById('admin-modal').classList.add('active');
-  document.getElementById('edit-announcement').value = announcementText;
+  const modal = document.getElementById('admin-modal');
+  if (modal) {
+    modal.classList.add('active');
+  }
+  const editAnn = document.getElementById('edit-announcement');
+  if (editAnn) {
+    editAnn.value = announcementText;
+  }
   renderBookings();
 }
 
 function closeAdminModal() {
-  document.getElementById('admin-modal').classList.remove('active');
+  const modal = document.getElementById('admin-modal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
 }
 
 function handleBackdropClick(e) {
@@ -601,16 +641,19 @@ function switchAdminTab(tabId) {
 }
 
 function openBookingModal() {
-  document.getElementById('booking-modal').classList.add('active');
+  const modal = document.getElementById('booking-modal');
+  if (modal) modal.classList.add('active');
 }
 
 function openBookingModalForService(serviceName) {
   openBookingModal();
-  document.getElementById('cust-service').value = serviceName;
+  const serv = document.getElementById('cust-service');
+  if (serv) serv.value = serviceName;
 }
 
 function closeBookingModal() {
-  document.getElementById('booking-modal').classList.remove('active');
+  const modal = document.getElementById('booking-modal');
+  if (modal) modal.classList.remove('active');
 }
 
 function handleBookingBackdrop(e) {
@@ -619,9 +662,13 @@ function handleBookingBackdrop(e) {
 
 function handleCustomerBooking(e) {
   e.preventDefault();
-  const name = document.getElementById('cust-name').value;
-  const phone = document.getElementById('cust-phone').value;
-  const service = document.getElementById('cust-service').value;
+  const nameEl = document.getElementById('cust-name');
+  const phoneEl = document.getElementById('cust-phone');
+  const servEl = document.getElementById('cust-service');
+
+  const name = nameEl ? nameEl.value : 'Guest';
+  const phone = phoneEl ? phoneEl.value : '';
+  const service = servEl ? servEl.value : 'Consultation';
 
   const newBooking = {
     id: `bk-${Date.now()}`,
@@ -632,13 +679,14 @@ function handleCustomerBooking(e) {
   };
 
   bookings.push(newBooking);
-  localStorage.setItem('tl_bookings', JSON.stringify(bookings));
+  safeSetStorage('tl_bookings', bookings);
   closeBookingModal();
   alert(`Thank you, ${name}! Your luxury suite appointment for ${service} is scheduled. An appointment confirmation has been logged to the Merkle ledger.`);
 }
 
 async function generateDemoInviteToken() {
-  const phone = document.getElementById('demo-phone').value;
+  const phoneEl = document.getElementById('demo-phone');
+  const phone = phoneEl ? phoneEl.value : '+971 50 123 4567';
   try {
     const res = await fetch('/api/token/generate', {
       method: 'POST',
@@ -648,26 +696,95 @@ async function generateDemoInviteToken() {
     const data = await res.json();
     if (data.success) {
       const fullUrl = window.location.origin + data.verificationUrl;
-      document.getElementById('token-url-text').innerText = fullUrl;
-      document.getElementById('token-test-link').href = data.verificationUrl;
-      document.getElementById('generated-token-result').style.display = 'block';
+      const urlText = document.getElementById('token-url-text');
+      const testLink = document.getElementById('token-test-link');
+      const resultBox = document.getElementById('generated-token-result');
+      if (urlText) urlText.innerText = fullUrl;
+      if (testLink) testLink.href = data.verificationUrl;
+      if (resultBox) resultBox.style.display = 'block';
     }
   } catch (err) {
     alert('Token generation error: ' + err.message);
   }
 }
 
-// Window Initialization
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('tl_theme');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    document.getElementById('theme-icon').innerText = savedTheme === 'light' ? '🌙' : '☀️';
+// Window Global Exports for direct HTML onclick compatibility
+window.toggleTheme = toggleTheme;
+window.toggleLanguage = toggleLanguage;
+window.openAdminModal = openAdminModal;
+window.closeAdminModal = closeAdminModal;
+window.handleBackdropClick = handleBackdropClick;
+window.switchAdminTab = switchAdminTab;
+window.openBookingModal = openBookingModal;
+window.openBookingModalForService = openBookingModalForService;
+window.closeBookingModal = closeBookingModal;
+window.handleBookingBackdrop = handleBookingBackdrop;
+window.handleCustomerBooking = handleCustomerBooking;
+window.generateDemoInviteToken = generateDemoInviteToken;
+window.runLiveAuditUI = runLiveAuditUI;
+window.downloadGoogleAppeal = downloadGoogleAppeal;
+window.exportBackupJSON = exportBackupJSON;
+window.importBackupJSON = importBackupJSON;
+window.saveAnnouncement = saveAnnouncement;
+window.addCategory = addCategory;
+window.deleteCategory = deleteCategory;
+window.selectCategory = selectCategory;
+window.handleSaveService = handleSaveService;
+window.editService = editService;
+window.deleteService = deleteService;
+window.resetServiceForm = resetServiceForm;
+window.handleImageCompress = handleImageCompress;
+window.generateTokenForBooking = generateTokenForBooking;
+
+// Robust Window & DOM Initialization
+function initializeApp() {
+  try {
+    const savedTheme = localStorage.getItem('tl_theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.innerText = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+  } catch (e) {
+    console.warn('[Theme] Read error', e);
   }
 
-  document.getElementById('announcement-text').innerText = announcementText;
+  const annTextEl = document.getElementById('announcement-text');
+  if (annTextEl) annTextEl.innerText = announcementText;
+
   renderCategories();
   renderServices();
   renderBookings();
   syncFromSupabase();
-});
+
+  // Explicit Direct Event Listeners (Backstop for inline onclick on mobile)
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleTheme();
+    });
+  }
+
+  const adminBtn = document.getElementById('admin-pill-btn');
+  if (adminBtn) {
+    adminBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openAdminModal();
+    });
+  }
+
+  const langBtn = document.getElementById('lang-toggle-btn');
+  if (langBtn) {
+    langBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleLanguage();
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+  initializeApp();
+}
